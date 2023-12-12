@@ -9,7 +9,7 @@ app = Dash(__name__) ;
 #set colors 
 
 colors = {
-    'background' : '#12111',
+    'background' : '#111111',
     'text' : '#7FDBFF'
 }
 
@@ -26,9 +26,9 @@ fig = px.bar(df, x='Fruit', y='Amount', color='City',barmode='group' )
 #apply stylizing on figure 
 
 fig.update_layout(
-    plot_bgcolor = colors['background'],
-    paper_color = colors['text'],
-    font_color = colors['text']
+    plot_bgcolor = 'white',
+    paper_bgcolor = 'white',
+    font_color = 'black'
 )
 
 
@@ -36,7 +36,7 @@ fig.update_layout(
 
 app.layout = html.Div(style={'backgroundColor' : colors['background']},
                         children = [
-                            html.H1(children='Hello People', style={'textAlign' : 'center' , colors: colors['text']}) , 
+                            html.H1(children='Hello People', style={'textAlign' : 'center' , 'color': colors['text']}) , 
 
                             html.Div(children='Evolution App v2', style={
                                 'textAlign' : 'center',
