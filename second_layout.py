@@ -40,7 +40,7 @@ app.layout = html.Div(style={'backgroundColor' : colors['background']},
 
                             html.Div(children='Evolution App v2', style={
                                 'textAlign' : 'center',
-                                'colors' : colors['text']
+                                'color' : colors['text']
                             }),
 
                             dcc.Graph(
