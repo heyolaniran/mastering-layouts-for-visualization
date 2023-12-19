@@ -13,7 +13,15 @@ app.layout=html.Div([
 
         html.Label("Multiple DropDown", style={'textAlign': 'center', 'marginBottom': '2px'}), 
         dcc.Dropdown(['Cotonou', 'Abomey-Calavi', 'Parakou'],[], id='multi-dropdown',multi=True)
-    ])
+    ]),
+
+
+    #Radio Items 
+    html.Div(children=[
+        html.Label('Radio Items'), 
+        dcc.RadioItems(['Cotonou', 'Abomey-Calavi', 'Parakou'], 'Cotonou' , id="radio_item")
+    ], style={'flex': 10 , 'padding': 20})
+
 ])
 
 
