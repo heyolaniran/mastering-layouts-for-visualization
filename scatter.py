@@ -7,7 +7,7 @@ df = pandas.read_csv('https://gist.githubusercontent.com/chriddyp/5d1ea79569ed19
 
 figure = px.scatter(df,x="gdp per capita", y="life expectancy", 
                     size="population", color="continent",
-                     hover_name="country", log_x=True, size_max=90)
+                     hover_name="country", log_x=True, size_max=120)
 
 app = Dash(__name__) 
 
