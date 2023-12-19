@@ -20,7 +20,26 @@ app.layout=html.Div([
     html.Div(children=[
         html.Label('Radio Items'), 
         dcc.RadioItems(['Cotonou', 'Abomey-Calavi', 'Parakou'], 'Cotonou' , id="radio_item")
-    ], style={'flex': 10 , 'padding': 20})
+    ], style={'flex': 10 , 'padding': 20}), 
+
+    #CheckBox 
+
+    html.Div(children=[
+        html.Label('CheckBoxes'), 
+        dcc.Checklist(['Cotonou', 'Abomey-Calavi', 'Parakou'], ['Parakou', 'Abomey-Calavi'], id="check_box")
+    ], style={'padding': 5}), 
+
+
+    #Range Slider 
+    html.Div(children=[
+        html.Label('Range'), 
+        dcc.Slider(
+            min=0, 
+            max=9, 
+            marks={i: f'Label {i}'if i== 1 else str(i) for i in range(0,9) }, 
+            value=4
+        )
+    ], style={'flex':5 , 'padding':5})
 
 ])
 
