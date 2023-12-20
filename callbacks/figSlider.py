@@ -9,6 +9,11 @@ fig = pandas.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/
 
 app.layout = html.Div([
 
+    html.Div([
+        html.H3('Rechercher des informations par Pays'), 
+        dcc.Input(id='my_country', value='Benin', type='text')
+    ], style={'textAlign' : 'center', 'flex' : 3}),
+
     dcc.Graph(id='fig-with-slider'), 
     dcc.Slider(
         min=fig['year'].min(), 
@@ -17,18 +22,24 @@ app.layout = html.Div([
         value=fig['year'].min(), 
         marks={str(year) : str(year) for year in fig['year'].unique()}, 
         id='year-slider'
-    )
+    ),
+
+    html.Br(), 
+
+    
 
 ])
 
 @callback(
     Output('fig-with-slider', 'figure'), 
-    Input(component_id='year-slider', component_property='value')
+    Input(component_id='year-slider', component_property='value'), 
+    Input(component_id='my_country', component_property='value')
 )
 
 
-def update_fig(selected_year) :
-    filtred_fig = fig[fig.year == selected_year]
+def update_fig(selected_year, my_country) :
+    country_fig = fig[fig.country == my_country]
+    filtred_fig = country_fig[country_fig.year == selected_year]
     figure = px.scatter(filtred_fig, x='gdpPercap',
                 y='lifeExp', 
                 color='continent',
