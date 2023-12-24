@@ -46,10 +46,13 @@ def update_fig(my_country, selected_year) :
                     color='continent',
                     size='pop', hover_name='country', size_max=100)
     else :
-        country_fig = fig[fig.country == my_country]
-        
-        figure = px.area(country_fig,x='year',y='lifeExp')
-        
+        #fixes handling country error 
+        try :
+            country_fig = fig[fig.country == my_country]
+            
+        except :
+            country_fig= fig[fig.continent == 'Africa'] 
+        figure = px.line(country_fig,x='year',y='lifeExp')
     figure.update_layout(transition_duration=200)
     return figure
 
