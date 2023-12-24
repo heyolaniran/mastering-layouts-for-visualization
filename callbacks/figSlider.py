@@ -32,18 +32,24 @@ app.layout = html.Div([
 
 @callback(
     Output('fig-with-slider', 'figure'), 
-    Input(component_id='year-slider', component_property='value'), 
-    Input(component_id='my_country', component_property='value')
+    Input(component_id='my_country', component_property='value'), 
+    Input(component_id='year-slider', component_property='value')
 )
 
 
-def update_fig(selected_year, my_country) :
-    country_fig = fig[fig.country == my_country]
-    filtred_fig = country_fig[country_fig.year == selected_year]
-    figure = px.scatter(filtred_fig, x='gdpPercap',
-                y='lifeExp', 
-                color='continent',
-                size='pop', hover_name='country', size_max=100)
+def update_fig(my_country, selected_year) :
+    if my_country == '' : 
+        country_fig = fig 
+        filtred_fig = country_fig[country_fig.year == selected_year]
+        figure = px.scatter(filtred_fig, x='gdpPercap',
+                    y='lifeExp', 
+                    color='continent',
+                    size='pop', hover_name='country', size_max=100)
+    else :
+        country_fig = fig[fig.country == my_country]
+        
+        figure = px.area(country_fig,x='year',y='lifeExp')
+        
     figure.update_layout(transition_duration=200)
     return figure
 
