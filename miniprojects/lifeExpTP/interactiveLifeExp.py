@@ -1,4 +1,4 @@
-from dash import Dash , html, callback , Output , Input 
+from dash import Dash , html, callback , Output , Input , dcc
 import plotly_express as px 
 import pandas 
 
@@ -28,9 +28,9 @@ app.layout = html.Div([
                 id='crossfilter-xaxis-column' 
             ) , 
             
-            #Radio Items for scatter plot display 
+            #Radio Items for scatter plot for first  display 
             
-            Radio.Items(
+            dcc.RadioItems(
                 ['linear', 'log'], 
                 'linear', 
                 id='crossfilter-xaxis-type', 
@@ -39,17 +39,19 @@ app.layout = html.Div([
 
         ], style={'width' : '49%', 'display': 'inline-block'}), 
         
-        # Div element for second plot 
+       
         
         html.Div(children=[
             
+             #  dropdown for second   plot 
             dcc.Dropdown(
                 dataframe['Indicator Name'].unique() , 
                 'Life expectancy at birth, total (years)', 
                 id='crossfilter-yaxis-column'
             ) , 
             
-            Radio.Items(
+             #  Radio Items for second   plot 
+            dcc.RadioItems(
                 ['linear','radio'], 
                 'linear', 
                 id='crossfilter-yaxis-type', 
@@ -58,5 +60,34 @@ app.layout = html.Div([
             
         ], style={'width': '49%', 'float': 'right', 'display': 'inline-block'})
         
-    ], style={'padding' : '10px 5px' })
+    ], style={'padding' : '10px 5px' }), 
+    
+    # Represent first plot 
+    
+    html.Div([
+         dcc.Graph(
+             id='crossfilter-indicator-scatter', 
+             hoverData={'points' : [{'customdata' : 'Benin'}]}
+         )
+    ], style={'width': '49%', 'display': 'inline-block', 'padding': '0 20'}),
+    
+    html.Div([
+        dcc.Graph(id='x-time-series'), 
+        dcc.Graph(id='y-time-series')
+    ], style={'display' : 'inline-block', 'width' : '49%'}), 
+    
+    html.Div([
+        dcc.Slider(
+            min=dataframe['Year'].min(), 
+            max=dataframe['Year'].max(), 
+            value=dataframe['Year'].max(), 
+            step=None, 
+            id='crossfilter-year--slider', 
+            marks={str(year) : str(year) for year in dataframe['Year'].unique()}
+        )
+    ],  style={'width': '49%', 'padding': '0px 20px 20px 20px'})
 ])
+
+
+if(__name__ == '__main__') : 
+    app.run(debug=True)
