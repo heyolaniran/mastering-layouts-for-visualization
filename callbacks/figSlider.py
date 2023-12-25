@@ -51,8 +51,9 @@ def update_fig(my_country, selected_year) :
             country_fig = fig[fig.country == my_country]
             
         except :
-            country_fig= fig[fig.continent == 'Africa'] 
+            country_fig= fig[fig.continent == 'africa'] 
         figure = px.line(country_fig,x='year',y='lifeExp')
+        
     figure.update_layout(transition_duration=200)
     return figure
 
