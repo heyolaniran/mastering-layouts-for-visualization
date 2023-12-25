@@ -1,4 +1,4 @@
-from dash import Dash , html , callback, Input , Output
+from dash import Dash
 import plotly_express as px 
 import pandas
 
@@ -21,8 +21,9 @@ df = pandas.DataFrame({
     "fruit": ["apple", "apple", "orange", "orange"]
 })
 
-fig = px.scatter(df, x='x' , y='y', color='fruit', custom_data = ['custom_data'])
+fig = px.scatter(df, x='x' , y='y', color='fruit')
 
-fig.update_layout(clickmode='event+click')
+fig.update_layout(clickmode='event+select')
 
-fig.update_traces(mark_sizes=15)
+fig.update_traces(marker_size=15)
+
