@@ -4,7 +4,7 @@ import pandas
 
 # Externals resources to use 
 
-external_style = ['']
+external_style = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 file_souce = 'https://plotly.github.io/datasets/country_indicators.csv' 
 
