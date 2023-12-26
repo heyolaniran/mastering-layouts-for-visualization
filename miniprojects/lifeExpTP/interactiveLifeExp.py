@@ -89,5 +89,41 @@ app.layout = html.Div([
 ])
 
 
+@callback(
+    Output(component_id='crossfilter-indicator-scatter', component_property='figure'), 
+    Input(component_id='crossfilter-xaxis-column', component_property='value'),
+    Input(component_id='crossfilter-yaxis-column', component_property='value'),
+    Input(component_id='crossfilter-xaxis-type', component_property='value'),
+    Input(component_id='crossfilter-yaxis-type', component_property='value'),
+    Input(component_id='crossfilter-year--slider', component_property='value')
+)
+
+def upgrade_graph(xaxis_column , yaxis_column, xaxis_type, yaxis_type, selected_year) :
+    #Get data for specific selected year from source file 
+    df = dataframe[dataframe['Year'] == selected_year]
+
+    #Build scatter plot from df 
+
+    figure = px.scatter(df , x=df[df['Indicator Name']==xaxis_column]['Value'], 
+                        y=df[df['Indicator Name'] == yaxis_column]['Value'],
+                        hover_name=df[df['Indicator Name']== yaxis_column]['Country Name'])
+    
+
+    #Update traces for scatter plote
+
+    figure.update_traces(customdata=df[df['Indicator Name'] == yaxis_column]['Country Name'])
+
+    # Transition for scatter plot update 
+    figure.update_layout(hovermode='closest', margin={'l': 40 , 'b': 40 ,  't': 10 , 'r': 0})
+
+    #Update axes display name
+
+    figure.update_xaxes(title=xaxis_column, type=xaxis_type)
+
+    figure.update_yaxes(title=yaxis_column, type=yaxis_type)
+
+    return figure
+
+
 if(__name__ == '__main__') : 
     app.run(debug=True)
