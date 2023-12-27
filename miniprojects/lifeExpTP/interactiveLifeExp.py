@@ -124,11 +124,11 @@ def upgrade_graph(xaxis_column , yaxis_column, xaxis_type, yaxis_type, selected_
 
     return figure
 
-def create_time_series(year, axis_type , title) :
-    fig = px.scatter(dataframe, x='Year', y='Value')
+def create_time_series(df, axis_type , title) :
+    fig = px.scatter(df, x='Year', y='Value')
     fig.update_traces(mode='lines+markers')
 
-    fig.update_xaxes(showGrid=False)
+    fig.update_xaxes(showgrid=False)
 
     fig.update_yaxes(type=axis_type)
 
@@ -140,6 +140,42 @@ def create_time_series(year, axis_type , title) :
 
     return fig 
 
+# Update xaxis time series (Graph based on x_axis_column)
+@callback(
+    Output('x-time-series','figure'), 
+    Input('crossfilter-indicator-scatter', 'hoverData'), 
+    Input('crossfilter-xaxis-column', 'value'), 
+    Input('crossfilter-xaxis-type', 'value')
+)
+
+def update_xaxis_time_series(hoverData , xaxis_column,  xaxis_type) : 
+    # Get hovered country name from scatter plot
+    country_name = hoverData['points'][0]['customdata']
+
+    df = dataframe[dataframe['Country Name'] == country_name]
+
+    df = df[df['Indicator Name']== xaxis_column] 
+    title = '<b>{}</b> <br>{}'.format(xaxis_column , xaxis_type)
+
+    return create_time_series(df, xaxis_type , title)
+
+#Update Y axes informations 
+@callback(
+    Output('y-time-series', 'figure'), 
+    Input('crossfilter-indicator-scatter', 'hoverData'), 
+    Input('crossfilter-yaxis-column', 'value'), 
+    Input('crossfilter-yaxis-type', 'value')
+)
+
+def update_yaxis_time_series(hoverData, yaxis_column, yaxis_type) :
+    country_name= hoverData['points'][0]['customdata']
+
+    dff = dataframe[dataframe['Country Name'] == country_name]
+    dff = dff[dff['Indicator Name'] == yaxis_column]
+
+    title = '<b>{}</b> <br>{}'.format(yaxis_column, yaxis_type)
+
+    return create_time_series(dff, yaxis_type ,  title)
 
 if(__name__ == '__main__') : 
     app.run(debug=True)
