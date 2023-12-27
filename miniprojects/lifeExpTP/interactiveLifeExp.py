@@ -124,6 +124,22 @@ def upgrade_graph(xaxis_column , yaxis_column, xaxis_type, yaxis_type, selected_
 
     return figure
 
+def create_time_series(year, axis_type , title) :
+    fig = px.scatter(dataframe, x='Year', y='Value')
+    fig.update_traces(mode='lines+markers')
+
+    fig.update_xaxes(showGrid=False)
+
+    fig.update_yaxes(type=axis_type)
+
+    fig.add_annotation(x=0, y=0.5 , xanchor='left', yanchor='bottom',
+                       xref='paper', yref='paper', showarrow=False,
+                       align='left', text=title)
+
+    fig.update_layout(height=225, margin={'l': 20, 'b': 30, 'r': 10, 't': 10})
+
+    return fig 
+
 
 if(__name__ == '__main__') : 
     app.run(debug=True)
