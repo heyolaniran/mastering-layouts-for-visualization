@@ -1,17 +1,17 @@
 from dash import dcc,  html , callback, Dash , Output , Input
-
+from dash.exceptions import PreventUpdate
 external_style = ['']
 
 app = Dash(__name__ , title='Prevent Update', external_stylesheets=external_style) 
 
 
-app.layout  = html.Div(
+app.layout  = html.Div([
+     html.P('Clickez sur le bouton pour afficher') ,
     
-    html.P('Clickez sur le bouton pour afficher') ,
-    
-    dcc.Button(id='button'),
+    html.Button('Cliquez ici',id='button'),
     
     html.P(id='show')
+]
 )
 
 @callback(
