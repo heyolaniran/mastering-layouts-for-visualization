@@ -52,7 +52,7 @@ app.layout = html.Div([
             
              #  Radio Items for second   plot 
             dcc.RadioItems(
-                ['linear','radio'], 
+                ['linear','log'], 
                 'linear', 
                 id='crossfilter-yaxis-type', 
                 labelStyle={'display': 'inline-block', 'marginTop': '5px'}
@@ -104,10 +104,10 @@ def upgrade_graph(xaxis_column , yaxis_column, xaxis_type, yaxis_type, selected_
 
     #Build scatter plot from df 
 
-    figure = px.scatter(df , x=df[df['Indicator Name']==xaxis_column], 
-                        y=df[df['Indicator Name'] == yaxis_column],
-                        hover_name=df[df['Indicator Name']== yaxis_column]['Country Name'])
-    
+    figure =px.scatter(df, x=df[df['Indicator Name'] == xaxis_column]['Value'],
+            y=df[df['Indicator Name'] == yaxis_column]['Value'],
+            hover_name=df[df['Indicator Name'] == yaxis_column]['Country Name']
+            )
 
     #Update traces for scatter plote
 
