@@ -104,8 +104,8 @@ def upgrade_graph(xaxis_column , yaxis_column, xaxis_type, yaxis_type, selected_
 
     #Build scatter plot from df 
 
-    figure = px.scatter(df , x=df[df['Indicator Name']==xaxis_column]['Value'], 
-                        y=df[df['Indicator Name'] == yaxis_column]['Value'],
+    figure = px.scatter(df , x=df[df['Indicator Name']==xaxis_column], 
+                        y=df[df['Indicator Name'] == yaxis_column],
                         hover_name=df[df['Indicator Name']== yaxis_column]['Country Name'])
     
 
