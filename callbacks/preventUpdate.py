@@ -1,6 +1,6 @@
 from dash import dcc,  html , callback, Dash , Output , Input
 from dash.exceptions import PreventUpdate
-external_style = ['']
+external_style = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = Dash(__name__ , title='Prevent Update', external_stylesheets=external_style) 
 
