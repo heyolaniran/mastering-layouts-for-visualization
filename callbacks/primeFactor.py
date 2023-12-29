@@ -2,9 +2,9 @@ from dash import Dash ,  html , dcc , callback ,  Output , Input , no_update
 from dash.exceptions import PreventUpdate 
 
 
-styles = ['']
+styles = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = Dash(name=__name__ , external_styles=styles, title='Prime Factors') 
+app = Dash(name=__name__ , external_stylesheets=styles, title='Prime Factors') 
 
 app.layout = html.Div([
     
@@ -23,16 +23,13 @@ app.layout = html.Div([
 def show_prime_factors(number) : 
     if number is None : 
         raise PreventUpdate(msg="Insert not null value plz")
-    else : 
-        factors = prime_factors(number)
+ 
+    factors = prime_factors(number)
     return '{} equals to {}'.format(number , '*'.join(str(factor) for factor in factors))
 
 
 def prime_factors(num) : 
-    if num <= 1 : 
-        raise PreventUpdate(msg='Number must be over or equal to 2') 
-    else : 
-        n = number 
+        n = int(num)
         i = 2 
         factors = [] 
         
