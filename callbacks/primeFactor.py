@@ -12,20 +12,27 @@ app.layout = html.Div([
     
     dcc.Input(id='number') , 
     
+    html.P(id='err', style={'color': 'red'}),
+    
     html.Div(id='result')
 ])
 
 @callback(
     Output('result', component_property='children'), 
+    Output("err" , "children") , 
     Input(component_id='number', component_property='value')
 )
 
 def show_prime_factors(number) : 
     if number is None : 
         raise PreventUpdate(msg="Insert not null value plz")
- 
+    
     factors = prime_factors(number)
-    return '{} equals to {}'.format(number , '*'.join(str(factor) for factor in factors))
+    if len(factors) == 1 : 
+        return no_update, '{} is prime number'.format(factors)
+ 
+ 
+    return '{} equals to {}'.format(number , ' * '.join(str(factor) for factor in factors)), ''
 
 
 def prime_factors(num) : 
@@ -41,7 +48,7 @@ def prime_factors(num) :
                 i+= 1 if i == 2 else 2
             
             
-        factors.append(n)
+        factors.append(int(n))
         
         return factors
     
