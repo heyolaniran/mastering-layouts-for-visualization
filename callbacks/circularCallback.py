@@ -1,6 +1,6 @@
 from dash import Dash , callback , ctx , Output, Input , html , dcc
 
-styles =[''] 
+styles =['https://codepen.io/chriddyp/pen/bWLwgP.css'] 
 
 app = Dash(__name__, external_stylesheets=styles) 
 
