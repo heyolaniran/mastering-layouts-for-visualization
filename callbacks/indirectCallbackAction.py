@@ -24,7 +24,8 @@ app.layout = html.Div([
 
 @callback(
     Output(component_id='output_1', component_property='children'), 
-    Input(component_id='btn_1', component_property='n_clicks')
+    Input(component_id='btn_1', component_property='n_clicks'), 
+    prevent_initial_call=True
 )
 
 def fast_exec(button) : 
@@ -36,7 +37,8 @@ def fast_exec(button) :
 
 @callback(
     Output(component_id='output_2', component_property='children'), 
-    Input(component_id='btn_2', component_property='n_clicks')
+    Input(component_id='btn_2', component_property='n_clicks') , 
+    prevent_initial_call=True
 )
 
 def slow_exec(button) : 
@@ -52,7 +54,8 @@ def slow_exec(button) :
 @callback(
     Output(component_id='output_3', component_property='children'), 
     Input(component_id='output_2', component_property='children'), 
-    Input(component_id='output_1', component_property='children')
+    Input(component_id='output_1', component_property='children'), 
+    prevent_initial_call=True
 )
 
 def resume_exec(output2 , output1) : 
