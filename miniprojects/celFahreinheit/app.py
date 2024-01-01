@@ -1,7 +1,7 @@
 from dash import Dash , html , dcc , callback , Output , Input, ctx 
 
 
-styles = ['']
+styles = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 
 app = Dash(__name__, title='Temperature Converter', external_stylesheets=styles)
 
