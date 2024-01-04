@@ -74,7 +74,7 @@ app.layout = html.Div(children=[
     Input(component_id='country', component_property='value')
 )
 
-
+# Update rendered data storage in dcc.Store 
 
 def update_graph_store(indicator , country) : 
 
@@ -87,6 +87,7 @@ def update_graph_store(indicator , country) :
         'mode' : 'markers'
     }]
 
+# JS function to run some callback without calling backend server and drawing the Graph
 
 clientside_callback(
     """
@@ -103,6 +104,9 @@ clientside_callback(
     Input(component_id='graph_data_store', component_property='data'), 
     Input(component_id='graph_scale', component_property='value')
 )
+
+
+# Generate Json format of current country indicator scaling 
 
 @callback(
     Output(component_id='clientside_df_json', component_property='children'), 
