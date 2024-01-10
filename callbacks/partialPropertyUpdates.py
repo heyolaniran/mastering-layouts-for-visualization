@@ -40,7 +40,7 @@ def update_markers(countries) :
     patched_fig = Patch() 
 
     updated_markers = [
-        "green" if i in country_count else "blue" for i in range(len(df)+1)
+        "red" if i in country_count else "blue" for i in range(len(df)+1)
     ]
 
     patched_fig['data'][0]['marker']['color'] = updated_markers
