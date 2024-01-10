@@ -1,4 +1,4 @@
-from dash import Dash , html, dcc, callback , Output, Input 
+from dash import Dash , html, dcc, callback , Output, Input , Patch
 import plotly.graph_objects as go 
 
 app =  Dash(__name__)
@@ -27,7 +27,7 @@ figure = go.Figure(
                     y=6, 
                     text="High Point", 
                     showarrow=False, 
-                    yshift=0
+                    yshift=10
                 )
             ]
         ), 
@@ -40,6 +40,40 @@ app.layout = html.Div([
     html.Button('Show/Clear Annotation', id='annotation_button'), 
     dcc.Graph(id='graph', figure=figure)
 ])
+
+
+@callback(
+    Output('graph', 'figure'), 
+    Input('annotation_button', 'n_clicks')
+)
+
+def update_graph(action) :
+
+    patched_fig = Patch()
+
+    if action and action % 2 != 0 : 
+        patched_fig['layout']["annotations"].clear()
+    else :
+        patched_fig['layout']['annotations'].extend(
+            [
+                dict(
+                    x=2, 
+                    y=5, 
+                    text="High point", 
+                    showarrow=True , 
+                    arrowhead=1
+                ), 
+                dict(
+                    x=7,
+                    y=6, 
+                    text="High Point", 
+                    showarrow=False, 
+                    yshift=10
+                )
+            ]
+        )
+
+    return patched_fig 
 
 
 if(__name__ == '__main__'): 
